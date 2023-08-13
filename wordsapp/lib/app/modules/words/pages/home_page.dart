@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:wordsapp/app/modules/words/components/card_button_widget.dart';
 import 'package:wordsapp/app/modules/words/pages/home_controller.dart';
+import 'package:wordsapp/app/modules/words/pages/word_list/word_list_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,97 +22,58 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void dispose() {
+    controller.pageViewController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFefefef),
-      body: Observer(builder: (context) {
-        return controller.words.maybeWhen(
-          data: (wordList) => SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      CardButtonWidget(
-                        label: 'Word List',
-                        isSelected: true,
-                        onTap: () {},
-                      ),
-                      const SizedBox(width: 16),
-                      CardButtonWidget(
-                        label: 'History',
-                        isSelected: false,
-                        onTap: () {},
-                      ),
-                      const SizedBox(width: 16),
-                      CardButtonWidget(
-                        label: 'Favorites',
-                        isSelected: false,
-                        onTap: () {},
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Word list',
-                      style: GoogleFonts.playfairDisplay(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+          child: Column(
+            children: [
+              Observer(builder: (context) {
+                return Row(
+                  children: [
+                    CardButtonWidget(
+                      label: 'Word List',
+                      isSelected: controller.currentPage == 0,
+                      onTap: () => controller.setPage(0),
                     ),
-                  ),
-                  const Divider(height: 8),
-                  Expanded(
-                      child: CustomScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    slivers: [
-                      SliverGrid.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 16,
-                          childAspectRatio: 1.0,
-                        ),
-                        itemCount:
-                            wordList.length, // Número total de itens na grade
-                        itemBuilder: (BuildContext context, int index) {
-                          return GridTile(
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  wordList[index].word,
-                                  style:
-                                      GoogleFonts.playfairDisplay(fontSize: 16),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  )),
-                ],
+                    const SizedBox(width: 16),
+                    CardButtonWidget(
+                      label: 'History',
+                      isSelected: controller.currentPage == 1,
+                      onTap: () => controller.setPage(1),
+                    ),
+                    const SizedBox(width: 16),
+                    CardButtonWidget(
+                      label: 'Favorites',
+                      isSelected: controller.currentPage == 2,
+                      onTap: () => controller.setPage(2),
+                    ),
+                  ],
+                );
+              }),
+              const SizedBox(height: 16),
+              Expanded(
+                child: PageView(
+                  controller: controller.pageViewController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: const [
+                    WordListPage(),
+                    Center(child: Text('2')),
+                    Center(child: Text('3')),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
-          orElse: () => const Center(
-              child: CircularProgressIndicator(color: Colors.white)),
-        );
-      }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.increment();
-        },
-        child: const Icon(Icons.add),
+        ),
       ),
     );
   }

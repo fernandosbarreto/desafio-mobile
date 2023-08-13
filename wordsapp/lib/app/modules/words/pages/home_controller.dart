@@ -1,66 +1,32 @@
-import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:wordsapp/app/core/constants/storage_keys.dart';
-import 'package:wordsapp/app/core/interfaces/secure_storage_interface.dart';
-import 'package:wordsapp/app/core/interfaces/words_repository_interface.dart';
-import 'package:wordsapp/app/core/models/words/word_model.dart';
+import 'package:wordsapp/app/modules/words/pages/words_store.dart';
 
 part 'home_controller.g.dart';
 
 class HomeController = HomeControllerBase with _$HomeController;
 
 abstract class HomeControllerBase with Store {
-  final ISecureStorage _secureStorage;
-  final IWordsRepository _wordsRepository;
+  final WordsStore _store;
 
-  HomeControllerBase(this._wordsRepository, this._secureStorage);
-
-  @observable
-  int counter = 0;
+  HomeControllerBase(this._store);
 
   @observable
-  bool hasWordList = false;
+  int currentPage = 0;
 
   @observable
-  WordList words = const WordList.empty();
+  PageController pageViewController = PageController();
 
   @action
-  Future<void> onInit() async {
-    getWords();
-  }
+  Future<void> onInit() async => _store.getWords();
 
   @action
-  Future<void> getWords() async {
-    words = const WordList.loading();
-
-    final storageWordList =
-        await _secureStorage.readData(StorageKeys.wordList.key);
-    hasWordList = storageWordList != null;
-
-    if (!hasWordList) {
-      _secureStorage.deleteData(StorageKeys.wordList.key);
-      words = await _wordsRepository.getWordList();
-    } else {
-      final jsonMap =
-          json.decode(storageWordList ?? '') as Map<String, dynamic>;
-      final List<String> keys = jsonMap.keys.toList();
-
-      final List<WordModel> wordList = [];
-      for (var element in keys) {
-        wordList.add(WordModel(word: element));
-      }
-
-      if (wordList.isEmpty) {
-        words = const WordList.empty();
-      }
-
-      words = WordList.data(wordList);
-    }
-  }
-
-  Future<void> increment() async {
-    getWords();
-    counter = counter + 1;
+  void setPage(int pageNumber) {
+    pageViewController.animateToPage(
+      pageNumber,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+    currentPage = pageNumber;
   }
 }

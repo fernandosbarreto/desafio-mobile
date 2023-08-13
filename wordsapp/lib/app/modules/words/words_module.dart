@@ -5,12 +5,18 @@ import 'package:wordsapp/app/core/repositories/words_repository.dart';
 import 'package:wordsapp/app/core/services/secure_storage.dart';
 import 'package:wordsapp/app/modules/words/pages/home_page.dart';
 import 'package:wordsapp/app/modules/words/pages/home_controller.dart';
+import 'package:wordsapp/app/modules/words/pages/word_list/word_list_controller.dart';
+import 'package:wordsapp/app/modules/words/pages/words_store.dart';
 
 class WordsModule extends Module {
   @override
   final List<Bind> binds = [
     //controllers
-    Bind.lazySingleton((i) => HomeController(i.get(), i.get())),
+    Bind.lazySingleton((i) => HomeController(i.get())),
+    Bind.lazySingleton((i) => WordListController(i.get())),
+
+    //stores
+    Bind.lazySingleton((i) => WordsStore(i.get(), i.get())),
 
     //repositories
     Bind.lazySingleton<IWordsRepository>(
