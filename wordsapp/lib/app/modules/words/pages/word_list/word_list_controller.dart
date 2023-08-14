@@ -11,6 +11,9 @@ abstract class WordListControllerBase with Store {
 
   WordListControllerBase(this._store);
 
+  @action
+  Future<void> getWordDetail(String word) => _store.getWordDetail(word);
+
   @computed
   WordList get words => _store.words;
 }

@@ -8,12 +8,15 @@ import 'package:wordsapp/app/modules/words/pages/home_controller.dart';
 import 'package:wordsapp/app/modules/words/pages/word_list/word_list_controller.dart';
 import 'package:wordsapp/app/modules/words/pages/words_store.dart';
 
+import 'pages/history/history_controller.dart';
+
 class WordsModule extends Module {
   @override
   final List<Bind> binds = [
     //controllers
     Bind.lazySingleton((i) => HomeController(i.get())),
     Bind.lazySingleton((i) => WordListController(i.get())),
+    Bind.lazySingleton((i) => HistoryController(i.get())),
 
     //stores
     Bind.lazySingleton((i) => WordsStore(i.get(), i.get())),

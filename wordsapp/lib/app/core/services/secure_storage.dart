@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wordsapp/app/core/interfaces/secure_storage_interface.dart';
+import 'package:wordsapp/app/core/models/word_detail/word_detail_model.dart';
 
 class SecureStorage implements ISecureStorage {
   final _storage = const FlutterSecureStorage();
@@ -25,4 +28,41 @@ class SecureStorage implements ISecureStorage {
   @override
   Future<void> clearAll() async =>
       _storage.deleteAll(iOptions: _iOptions, aOptions: _aOptions);
+
+  @override
+  Future<List<String>> findList(String key) async {
+    List<String> storageList = [];
+    final listResult = await readData(key);
+    if (listResult != null) {
+      storageList = json.decode(listResult);
+    }
+    return storageList;
+  }
+
+  @override
+  Future<List<WordDetailModel>> findWordList(String key) async {
+    String? jsonStringList = await readData(key);
+    if (jsonStringList != null) {
+      List<dynamic> jsonList = json.decode(jsonStringList);
+      List<WordDetailModel> wordDetailList =
+          jsonList.map((jsonMap) => WordDetailModel.fromJson(jsonMap)).toList();
+      return wordDetailList;
+    }
+    return [];
+  }
+
+  @override
+  Future<void> updateWordList({
+    required String key,
+    required WordDetailModel newWordDetail,
+  }) async {
+    final wordDetailList = await findWordList(key);
+
+    wordDetailList.add(newWordDetail);
+
+    String jsonStringList =
+        json.encode(wordDetailList.map((detail) => detail.toJson()).toList());
+
+    await writeData(key, jsonStringList);
+  }
 }
