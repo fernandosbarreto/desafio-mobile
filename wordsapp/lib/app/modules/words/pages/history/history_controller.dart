@@ -21,4 +21,7 @@ abstract class HistoryControllerBase with Store {
 
   @computed
   List<WordDetailModel> get wordHistory => _store.wordHistory.reversed.toList();
+
+  @computed
+  WordDetail get wordDetail => _store.wordDetail;
 }

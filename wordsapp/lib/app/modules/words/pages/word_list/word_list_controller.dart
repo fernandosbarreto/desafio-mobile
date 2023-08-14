@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:wordsapp/app/core/models/word_detail/word_detail_model.dart';
 import 'package:wordsapp/app/core/models/words/word_model.dart';
 import 'package:wordsapp/app/modules/words/pages/words_store.dart';
 
@@ -16,4 +17,7 @@ abstract class WordListControllerBase with Store {
 
   @computed
   WordList get words => _store.words;
+
+  @computed
+  WordDetail get wordDetail => _store.wordDetail;
 }

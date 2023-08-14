@@ -53,8 +53,28 @@ class _WordListPageState extends State<WordListPage> {
                           return GridTile(
                             child: ResizeOnTapWidget(
                               child: GestureDetector(
-                                onTap: () => controller
-                                    .getWordDetail(wordList[index].word),
+                                onTap: () async {
+                                  await controller
+                                      .getWordDetail(wordList[index].word);
+
+                                  controller.wordDetail.maybeWhen(
+                                    data: (data) {
+                                      Modular.to.pushNamed('/word-detail');
+                                    },
+                                    orElse: () {
+                                      final snackBar = SnackBar(
+                                        content: const Text(
+                                            'Sorry, could not find definition of the word'),
+                                        action: SnackBarAction(
+                                          label: 'Done',
+                                          onPressed: () {},
+                                        ),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    },
+                                  );
+                                },
                                 child: Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
