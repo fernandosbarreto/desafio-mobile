@@ -60,9 +60,8 @@ class _WordListPageState extends State<WordListPage> {
                                         .getWordDetail(wordList[index].word);
 
                                     controller.wordDetail.maybeWhen(
-                                      data: (data) {
-                                        Modular.to.pushNamed('/word-detail');
-                                      },
+                                      data: (data) async => await Modular.to
+                                          .pushNamed('/word-detail'),
                                       orElse: () {
                                         final snackBar = SnackBar(
                                           content: const Text(

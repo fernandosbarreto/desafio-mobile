@@ -17,11 +17,11 @@ class _WordDetailPageState extends State<WordDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (context) {
-      return Scaffold(
-        backgroundColor: const Color(0xFFefefef),
-        body: SafeArea(
-          child: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: const Color(0xFFefefef),
+      body: SafeArea(
+        child: Observer(builder: (context) {
+          return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
               child: Column(
@@ -55,7 +55,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
                     ),
                   ),
                   ListView.builder(
-                    itemCount: controller.wordDetail?.results?.length,
+                    itemCount: controller.wordDetail?.results?.length ?? 0,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
@@ -89,9 +89,9 @@ class _WordDetailPageState extends State<WordDetailPage> {
                 ],
               ),
             ),
-          ),
-        ),
-      );
-    });
+          );
+        }),
+      ),
+    );
   }
 }

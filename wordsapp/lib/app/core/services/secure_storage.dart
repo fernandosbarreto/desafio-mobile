@@ -44,9 +44,14 @@ class SecureStorage implements ISecureStorage {
     String? jsonStringList = await readData(key);
     if (jsonStringList != null) {
       List<dynamic> jsonList = json.decode(jsonStringList);
-      List<WordDetailModel> wordDetailList =
-          jsonList.map((jsonMap) => WordDetailModel.fromJson(jsonMap)).toList();
-      return wordDetailList;
+      try {
+        List<WordDetailModel> wordDetailList = jsonList
+            .map((jsonMap) => WordDetailModel.fromJson(jsonMap))
+            .toList();
+        return wordDetailList;
+      } catch (e) {
+        return [];
+      }
     }
     return [];
   }
