@@ -39,6 +39,9 @@ class _WordDetailPageState extends State<WordDetailPage> {
                   Center(
                     child: WordDetailCardWidget(
                       label: controller.wordDetail?.word ?? '',
+                      isFavorite: controller.isFavorite,
+                      onTapFavorite: () =>
+                          controller.setFavoriteWord(controller.wordDetail),
                       description:
                           controller.wordDetail?.pronunciation?.all ?? '',
                     ),

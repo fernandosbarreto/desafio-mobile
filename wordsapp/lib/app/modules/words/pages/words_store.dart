@@ -23,6 +23,9 @@ abstract class WordsStoreBase with Store {
   List<WordDetailModel> wordHistory = [];
 
   @observable
+  List<WordDetailModel> favoriteWords = [];
+
+  @observable
   WordDetail wordDetail = const WordDetail.none();
 
   @observable
@@ -58,11 +61,20 @@ abstract class WordsStoreBase with Store {
   }
 
   @action
+  Future<void> updateWordHistory(WordDetailModel word) async {
+    await secureStorage.updateWordList(
+      key: StorageKeys.wordHistory.key,
+      newWordDetail: word,
+    );
+    await getWordDetail(word.word ?? '');
+  }
+
+  @action
   Future<void> getWordDetail(String word) async {
     if (word != '') {
       wordDetail = const WordDetail.loading();
 
-      await updateHistory();
+      await getHistory();
 
       if (wordHistory.any((element) => element.word == word)) {
         final cachedWord =
@@ -77,7 +89,7 @@ abstract class WordsStoreBase with Store {
               key: StorageKeys.wordHistory.key,
               newWordDetail: wordDetailModel,
             );
-            await updateHistory();
+            await getHistory();
           },
           orElse: () {},
         );
@@ -86,7 +98,13 @@ abstract class WordsStoreBase with Store {
   }
 
   @action
-  Future<void> updateHistory() async {
+  Future<void> getHistory() async {
     wordHistory = await secureStorage.findWordList(StorageKeys.wordHistory.key);
+  }
+
+  @action
+  Future<void> getFavoriteWords() async {
+    favoriteWords =
+        await secureStorage.findWordList(StorageKeys.favoriteWords.key);
   }
 }

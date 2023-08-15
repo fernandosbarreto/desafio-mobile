@@ -12,4 +12,8 @@ abstract class ISecureStorage {
     required String key,
     required WordDetailModel newWordDetail,
   });
+  Future<void> removeWordFromList({
+    required String key,
+    required WordDetailModel wordDetail,
+  });
 }

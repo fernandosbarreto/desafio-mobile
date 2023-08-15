@@ -39,60 +39,63 @@ class _WordListPageState extends State<WordListPage> {
                   child: CustomScrollView(
                     physics: const BouncingScrollPhysics(),
                     slivers: [
-                      SliverGrid.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 16,
-                          childAspectRatio: 1.0,
-                        ),
-                        itemCount:
-                            wordList.length, // Número total de itens na grade
-                        itemBuilder: (BuildContext context, int index) {
-                          return GridTile(
-                            child: ResizeOnTapWidget(
-                              child: GestureDetector(
-                                onTap: () async {
-                                  await controller
-                                      .getWordDetail(wordList[index].word);
+                      SliverPadding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        sliver: SliverGrid.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 16,
+                            childAspectRatio: 1.0,
+                          ),
+                          itemCount:
+                              wordList.length, // Número total de itens na grade
+                          itemBuilder: (BuildContext context, int index) {
+                            return GridTile(
+                              child: ResizeOnTapWidget(
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    await controller
+                                        .getWordDetail(wordList[index].word);
 
-                                  controller.wordDetail.maybeWhen(
-                                    data: (data) {
-                                      Modular.to.pushNamed('/word-detail');
-                                    },
-                                    orElse: () {
-                                      final snackBar = SnackBar(
-                                        content: const Text(
-                                            'Sorry, could not find definition of the word'),
-                                        action: SnackBarAction(
-                                          label: 'Done',
-                                          onPressed: () {},
-                                        ),
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
-                                    },
-                                  );
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      wordList[index].word,
-                                      style: GoogleFonts.playfairDisplay(
-                                          fontSize: 16),
+                                    controller.wordDetail.maybeWhen(
+                                      data: (data) {
+                                        Modular.to.pushNamed('/word-detail');
+                                      },
+                                      orElse: () {
+                                        final snackBar = SnackBar(
+                                          content: const Text(
+                                              'Sorry, could not find definition of the word'),
+                                          action: SnackBarAction(
+                                            label: 'Done',
+                                            onPressed: () {},
+                                          ),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                      },
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        wordList[index].word,
+                                        style: GoogleFonts.playfairDisplay(
+                                            fontSize: 16),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),

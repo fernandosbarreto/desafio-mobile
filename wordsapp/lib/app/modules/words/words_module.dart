@@ -3,6 +3,7 @@ import 'package:wordsapp/app/core/interfaces/secure_storage_interface.dart';
 import 'package:wordsapp/app/core/interfaces/words_repository_interface.dart';
 import 'package:wordsapp/app/core/repositories/words_repository.dart';
 import 'package:wordsapp/app/core/services/secure_storage.dart';
+import 'package:wordsapp/app/modules/words/pages/favorites/favorites_controller.dart';
 import 'package:wordsapp/app/modules/words/pages/home_page.dart';
 import 'package:wordsapp/app/modules/words/pages/home_controller.dart';
 import 'package:wordsapp/app/modules/words/pages/word_detail/word_detail_controller.dart';
@@ -19,6 +20,7 @@ class WordsModule extends Module {
     Bind.lazySingleton((i) => HomeController(i.get())),
     Bind.lazySingleton((i) => WordListController(i.get())),
     Bind.lazySingleton((i) => HistoryController(i.get())),
+    Bind.lazySingleton((i) => FavoritesController(i.get())),
     Bind.lazySingleton((i) => WordDetailController(i.get())),
 
     //stores

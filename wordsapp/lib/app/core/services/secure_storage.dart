@@ -52,13 +52,40 @@ class SecureStorage implements ISecureStorage {
   }
 
   @override
+  Future<void> removeWordFromList({
+    required String key,
+    required WordDetailModel wordDetail,
+  }) async {
+    final wordDetailList = await findWordList(key);
+
+    final existingIndex =
+        wordDetailList.indexWhere((element) => element.word == wordDetail.word);
+
+    if (existingIndex != -1) {
+      wordDetailList.removeWhere((element) => element.word == wordDetail.word);
+
+      String jsonStringList =
+          json.encode(wordDetailList.map((detail) => detail.toJson()).toList());
+
+      await writeData(key, jsonStringList);
+    }
+  }
+
+  @override
   Future<void> updateWordList({
     required String key,
     required WordDetailModel newWordDetail,
   }) async {
     final wordDetailList = await findWordList(key);
 
-    wordDetailList.add(newWordDetail);
+    final existingIndex = wordDetailList
+        .indexWhere((element) => element.word == newWordDetail.word);
+
+    if (existingIndex != -1) {
+      wordDetailList[existingIndex] = newWordDetail;
+    } else {
+      wordDetailList.add(newWordDetail);
+    }
 
     String jsonStringList =
         json.encode(wordDetailList.map((detail) => detail.toJson()).toList());

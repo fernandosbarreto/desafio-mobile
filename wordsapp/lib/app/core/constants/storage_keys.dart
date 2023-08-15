@@ -1,6 +1,7 @@
 enum StorageKeys {
   wordList('wordList'),
-  wordHistory('wordHistory');
+  wordHistory('wordHistory'),
+  favoriteWords('favoriteWords');
 
   const StorageKeys(this.key);
 

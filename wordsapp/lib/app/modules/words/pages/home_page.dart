@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:wordsapp/app/core/components/card_button_widget.dart';
+import 'package:wordsapp/app/modules/words/pages/favorites/favorites_page.dart';
 import 'package:wordsapp/app/modules/words/pages/history/history_page.dart';
 import 'package:wordsapp/app/modules/words/pages/home_controller.dart';
 import 'package:wordsapp/app/modules/words/pages/word_list/word_list_page.dart';
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                   children: const [
                     WordListPage(),
                     HistoryPage(),
-                    Center(child: Text('3')),
+                    FavoritesPage(),
                   ],
                 ),
               ),

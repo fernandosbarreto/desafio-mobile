@@ -10,6 +10,7 @@ class WordDetailModel with _$WordDetailModel {
   @JsonSerializable(fieldRename: FieldRename.none)
   factory WordDetailModel({
     String? word,
+    @JsonKey(defaultValue: false) bool? isFavorite,
     List<WordDefinitionModel>? results,
     WordPronunciationModel? pronunciation,
     double? frequency,

@@ -2,14 +2,14 @@ import 'package:mobx/mobx.dart';
 import 'package:wordsapp/app/core/models/word_detail/word_detail_model.dart';
 import 'package:wordsapp/app/modules/words/pages/words_store.dart';
 
-part 'history_controller.g.dart';
+part 'favorites_controller.g.dart';
 
-class HistoryController = HistoryControllerBase with _$HistoryController;
+class FavoritesController = FavoritesControllerBase with _$FavoritesController;
 
-abstract class HistoryControllerBase with Store {
+abstract class FavoritesControllerBase with Store {
   final WordsStore _store;
 
-  HistoryControllerBase(
+  FavoritesControllerBase(
     this._store,
   );
 
@@ -17,10 +17,11 @@ abstract class HistoryControllerBase with Store {
   Future<void> getWordDetail(String word) => _store.getWordDetail(word);
 
   @action
-  Future<void> getHistory() => _store.getHistory();
+  Future<void> getFavoriteWords() => _store.getFavoriteWords();
 
   @computed
-  List<WordDetailModel> get wordHistory => _store.wordHistory.reversed.toList();
+  List<WordDetailModel> get favoriteWords =>
+      _store.favoriteWords.reversed.toList();
 
   @computed
   WordDetail get wordDetail => _store.wordDetail;

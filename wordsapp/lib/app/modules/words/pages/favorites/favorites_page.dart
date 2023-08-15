@@ -3,21 +3,21 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wordsapp/app/core/components/resize_on_tap_widget.dart';
-import 'package:wordsapp/app/modules/words/pages/history/history_controller.dart';
+import 'package:wordsapp/app/modules/words/pages/favorites/favorites_controller.dart';
 
-class HistoryPage extends StatefulWidget {
-  const HistoryPage({super.key});
+class FavoritesPage extends StatefulWidget {
+  const FavoritesPage({super.key});
 
   @override
-  State<HistoryPage> createState() => _HistoryPageState();
+  State<FavoritesPage> createState() => _FavoritesPageState();
 }
 
-class _HistoryPageState extends State<HistoryPage> {
-  final controller = Modular.get<HistoryController>();
+class _FavoritesPageState extends State<FavoritesPage> {
+  final controller = Modular.get<FavoritesController>();
 
   @override
   void initState() {
-    controller.getHistory();
+    controller.getFavoriteWords();
     super.initState();
   }
 
@@ -32,7 +32,7 @@ class _HistoryPageState extends State<HistoryPage> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'History',
+                  'Favorites',
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -40,7 +40,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 ),
               ),
               const Divider(height: 8),
-              if (controller.wordHistory.isNotEmpty)
+              if (controller.favoriteWords.isNotEmpty)
                 Expanded(
                   child: CustomScrollView(
                     physics: const BouncingScrollPhysics(),
@@ -55,14 +55,14 @@ class _HistoryPageState extends State<HistoryPage> {
                             crossAxisSpacing: 16,
                             childAspectRatio: 1.0,
                           ),
-                          itemCount: controller.wordHistory.length,
+                          itemCount: controller.favoriteWords.length,
                           itemBuilder: (BuildContext context, int index) {
                             return GridTile(
                               child: ResizeOnTapWidget(
                                 child: GestureDetector(
                                   onTap: () async {
                                     await controller.getWordDetail(
-                                        controller.wordHistory[index].word ??
+                                        controller.favoriteWords[index].word ??
                                             '');
 
                                     controller.wordDetail.maybeWhen(
@@ -91,7 +91,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        controller.wordHistory[index].word ??
+                                        controller.favoriteWords[index].word ??
                                             '',
                                         style: GoogleFonts.playfairDisplay(
                                             fontSize: 16),
