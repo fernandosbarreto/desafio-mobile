@@ -15,6 +15,7 @@ O aplicativo WordsApp oferece uma experiência intuitiva ao exibir uma lista de 
 8. Criar tela e exibir detalhes das palavras para começar a salvar o histórico;
 9. Adicionar recurso de histórico e armazenamento local;
 10. Adicionar recurso para salvar como favorito (processo semelhante ao histórico, mas com a opção de remover).
+11. Feito testes unitarios do wordsRepository; 
 
 ## Descobertas
 - Como utilizar o `secure_storage` para armazenar dados "complexos"; eu havia usado somente para guardar uma string de refreshToken;
@@ -24,15 +25,17 @@ O aplicativo WordsApp oferece uma experiência intuitiva ao exibir uma lista de 
 
 - **Flutter** Versão 3.10.6 - última versão estável em 15/08/2023 [[doc]](https://docs.flutter.dev/release/archive?tab=windows)
 
-- **mobx** para gerenciamento de estado [[pub.dev]](https://pub.dev/packages/mobx) [[doc]](https://pub.dev/documentation/mobx/latest/)
+- **Mobx** para gerenciamento de estado [[pub.dev]](https://pub.dev/packages/mobx) [[doc]](https://pub.dev/documentation/mobx/latest/)
 
-- **freezed** para ajudar a criar modelos e estados de exibição [[pub.dev]](https://pub.dev/packages/freezed) [[doc]](https://pub.dev/documentation/freezed/latest/)
+- **Freezed** para ajudar a criar modelos e estados de exibição [[pub.dev]](https://pub.dev/packages/freezed) [[doc]](https://pub.dev/documentation/freezed/latest/)
 
 - **Flutter Modular** para injeção de dependência e rotas [[pub.dev]](https://pub.dev/packages/flutter_modular) [[doc]](https://modular.flutterando.com.br/)
   
 - **Flutter Secure Storage** para armazenamento local criptografado [[pub.dev]](https://pub.dev/packages/flutter_secure_storage) [[doc]](https://pub.dev/documentation/flutter_secure_storage/latest/)
   
 - **Dio** para simplificar requisições de rede e interações com API [[pub.dev]](https://pub.dev/packages/dio) [[doc]](https://pub.dev/documentation/dio/latest/)
+
+- **Mocktail** facilitar os testes possibilitando a criação de mocks [[pub.dev]](https://pub.dev/packages/mocktail) [[doc]](https://pub.dev/documentation/mocktail/latest/)
 
 ## Sobre os módulos
 Este projeto foi desenvolvido utilizando uma estrutura de módulos, permitindo a separação de cada módulo em pacotes, facilitando a manutenção e coesão de cada módulo.

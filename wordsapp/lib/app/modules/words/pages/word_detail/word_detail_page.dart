@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wordsapp/app/core/components/word_detail_card_widget.dart';
+import 'package:wordsapp/app/core/models/word_definition/word_definition_model.dart';
 import 'package:wordsapp/app/modules/words/pages/word_detail/word_detail_controller.dart';
 
 class WordDetailPage extends StatefulWidget {
@@ -21,6 +22,8 @@ class _WordDetailPageState extends State<WordDetailPage> {
       backgroundColor: const Color(0xFFefefef),
       body: SafeArea(
         child: Observer(builder: (context) {
+          List<WordDefinitionModel> meanings =
+              controller.wordDetail?.results ?? [];
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
@@ -47,45 +50,47 @@ class _WordDetailPageState extends State<WordDetailPage> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  Text(
-                    'Meanings',
-                    style: GoogleFonts.playfairDisplay(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                  if (meanings.isNotEmpty)
+                    Text(
+                      'Meanings',
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
                   ListView.builder(
-                    itemCount: controller.wordDetail?.results?.length ?? 0,
+                    itemCount: meanings.length,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: Text(
-                          '- ${controller.wordDetail?.results?[index].definition}',
+                          '- ${meanings[index].definition}',
                           style: GoogleFonts.playfairDisplay(fontSize: 16),
                         ),
                       );
                     },
                   ),
                   const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Text(
-                        'Frequency: ${controller.wordDetail?.frequency}',
-                        style: GoogleFonts.playfairDisplay(fontSize: 16),
-                      ),
-                      const SizedBox(width: 12),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: LinearProgressIndicator(
-                          color: Colors.black45,
-                          backgroundColor: Colors.white,
-                          value: controller.calculatedFrequency(),
+                  if (controller.wordDetail?.frequency != null)
+                    Row(
+                      children: [
+                        Text(
+                          'Frequency: ${controller.wordDetail?.frequency}',
+                          style: GoogleFonts.playfairDisplay(fontSize: 16),
                         ),
-                      ),
-                    ],
-                  ),
+                        const SizedBox(width: 12),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: LinearProgressIndicator(
+                            color: Colors.black45,
+                            backgroundColor: Colors.white,
+                            value: controller.calculatedFrequency(),
+                          ),
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),

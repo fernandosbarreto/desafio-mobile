@@ -47,6 +47,7 @@ dependencies:
   flutter_secure_storage: 6.0.0
   json_annotation: 4.8.1
   json_serializable: 6.7.1
+  mocktail: 1.0.0
 
 dev_dependencies:
   flutter_test:
