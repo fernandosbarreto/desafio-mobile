@@ -1,0 +1,19 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "WordsApp",
+            "cwd": "wordsapp",
+            "request": "launch",
+            "type": "dart",
+            //Don't let in your public repository project TOKEN API keys, here they are being shared for study purposes.
+            "args": [
+                "--dart-define=wordApiToken=8cfdb189e7229b9beb9207bee858bdbfaeb5250932f991b8",
+                "--dart-define=wordApiDate=2023-08-13T17:36:58.266Z",
+            ]
+        },
+    ]
+}

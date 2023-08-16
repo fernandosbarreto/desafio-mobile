@@ -54,8 +54,8 @@ class WordsRepository implements IWordsRepository {
       final response = await httpService.get(
         url,
         queryParameters: {
-          'when': '2023-08-13T17:36:58.266Z',
-          'encrypted': '8cfdb189e7229b9beb9207bee858bdbfaeb5250932f991b8',
+          'when': ApiPaths.envWordApiDate,
+          'encrypted': ApiPaths.envWordApiToken
         },
       );
 
