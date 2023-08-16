@@ -1,257 +1,64 @@
-# Mobile Challenge 🏅 2023 - Dictionary
+# Desafio Mobile 🏅 2023 - Dicionário
 
-## Introdução
+## Descrição
 
-Este é um desafio para que possamos ver as suas habilidades como Mobile Developer.
+O aplicativo WordsApp oferece uma experiência intuitiva ao exibir uma lista de palavras em inglês. Ao tocar em uma palavra, os usuários podem acessar uma tela detalhada contendo descrição, pronúncia e frequência de uso. A funcionalidade de salvar palavras favoritas localmente adiciona comodidade, permitindo aos usuários revisitar suas seleções. Esse projeto foi proposto como desafio pela equipe [**Pilar**](https://www.soupilar.com.br/) e pode ser acessado em [**DesafioMobile**](https://github.com/alessandrosil/desafio-mobile).
 
-Nesse desafio você deverá desenvolver um aplicativo para listar palavras em inglês, utilizando como base a API [Words API](https://www.wordsapi.com/). O projeto a ser desenvolvido por você tem como objetivo exibir termos em inglês e gerenciar as palavras visualizadas, conforme indicado nos casos de uso que estão logo abaixo.
+## Etapas
+1. Realizar fork e clone do projeto;
+2. Investigar o funcionamento da API (descobri que não é necessário cadastrar cartão de crédito para uso, testando com F12 no navegador, encontrei os parâmetros padrões);
+3. Adicionar dependências e estrutura inicial;
+4. Buscar e armazenar localmente os dados da lista de palavras;
+5. Criar tela inicial e exibir a lista;
+6. Adicionar requisição dos detalhes das palavras;
+7. Salvar o resultado de cada palavra pesquisada;
+8. Criar tela e exibir detalhes das palavras para começar a salvar o histórico;
+9. Adicionar recurso de histórico e armazenamento local;
+10. Adicionar recurso para salvar como favorito (processo semelhante ao histórico, mas com a opção de remover).
 
-[SPOILER] As instruções de entrega e apresentação do challenge estão no final deste Readme (=
+## Descobertas
+- Como utilizar o `secure_storage` para armazenar dados "complexos"; eu havia usado somente para guardar uma string de refreshToken;
+- Dependendo de onde é utilizado, o `safeArea` pode causar congelamentos no aplicativo.
 
-### Antes de começar
- 
-- Prepare o projeto para ser disponibilizado no Github, copiando o conteúdo deste repositório para o seu (ou utilize o fork do projeto e aponte para o Github). Confirme que a visibilidade do projeto é pública (não esqueça de colocar no readme a referência a este challenge);
-- O projeto deve utilizar a Linguagem específica na sua Vaga (caso esteja se candidatando). Por exempo: Python, R, Scala e entre outras;
-- Considere como deadline 5 dias a partir do início do desafio. Caso tenha sido convidado a realizar o teste e não seja possível concluir dentro deste período, avise a pessoa que o convidou para receber instruções sobre o que fazer.
-- Documentar todo o processo de investigação para o desenvolvimento da atividade (README.md no seu repositório); os resultados destas tarefas são tão importantes do que o seu processo de pensamento e decisões à medida que as completa, por isso tente documentar e apresentar os seus hipóteses e decisões na medida do possível.
+## Um projeto Flutter feito utilizando:
 
-### Instruções iniciais obrigatórias
+- **Flutter** Versão 3.10.6 - última versão estável em 15/08/2023 [[doc]](https://docs.flutter.dev/release/archive?tab=windows)
 
-- Utilize as seguintes tecnologias:
+- **mobx** para gerenciamento de estado [[pub.dev]](https://pub.dev/packages/mobx) [[doc]](https://pub.dev/documentation/mobx/latest/)
 
-#### Tecnologias (Mobile):
-- Nativo ou Hibrido (Flutter, Ionic, React Native, etc)
-- Estilização (Material, Semantic, etc). Ou escrever o seu próprio sob medida 👌
-- Gestão de dados (Redux, Context API, IndexedDB, SQLite, etc)
+- **freezed** para ajudar a criar modelos e estados de exibição [[pub.dev]](https://pub.dev/packages/freezed) [[doc]](https://pub.dev/documentation/freezed/latest/)
 
-Atente-se, ao desenvolver a aplicação mobile, para conceitos de usabilidade e adeque a interface com elementos visuais para os usuários do seu sistema.
+- **Flutter Modular** para injeção de dependência e rotas [[pub.dev]](https://pub.dev/packages/flutter_modular) [[doc]](https://modular.flutterando.com.br/)
+  
+- **Flutter Secure Storage** para armazenamento local criptografado [[pub.dev]](https://pub.dev/packages/flutter_secure_storage) [[doc]](https://pub.dev/documentation/flutter_secure_storage/latest/)
+  
+- **Dio** para simplificar requisições de rede e interações com API [[pub.dev]](https://pub.dev/packages/dio) [[doc]](https://pub.dev/documentation/dio/latest/)
 
-#### Tecnologias (Back-End):
-- Firebase, Supabase, etc
+## Sobre os módulos
+Este projeto foi desenvolvido utilizando uma estrutura de módulos, permitindo a separação de cada módulo em pacotes, facilitando a manutenção e coesão de cada módulo.
 
-#### Organização:
-- Aplicação de padrões Clean Code
-- Validação de chamadas assíncronas para evitar travamentos
+ - **CoreModule**: responsável por fornecer recursos básicos a todos os módulos;
+ - **wordsModule**: para exibir a lista de palavras;
 
-### Modelo de Dados:
-
-Conforme indicado na documentação da API, a estrutura de dados presente retorna as seguintes informações:
-
-```json
-{
-  "word": "example",
-  "results": [
-    {
-      "definition": "a representative form or pattern",
-      "partOfSpeech": "noun",
-      "synonyms": [
-        "model"
-      ],
-      "typeOf": [
-        "representation",
-        "internal representation",
-        "mental representation"
-      ],
-      "hasTypes": [
-        "prefiguration",
-        "archetype",
-        "epitome",
-        "guide",
-        "holotype",
-        "image",
-        "loadstar",
-        "lodestar",
-        "microcosm",
-        "original",
-        "paradigm",
-        "pilot",
-        "prototype",
-        "template",
-        "templet",
-        "type specimen"
-      ],
-      "derivation": [
-        "exemplify"
-      ],
-      "examples": [
-        "I profited from his example"
-      ]
-    },
-    {
-      "definition": "something to be imitated",
-      "partOfSpeech": "noun",
-      "synonyms": [
-        "exemplar",
-        "good example",
-        "model"
-      ],
-      "typeOf": [
-        "ideal"
-      ],
-      "hasTypes": [
-        "pacemaker",
-        "pattern",
-        "beauty",
-        "prodigy",
-        "beaut",
-        "pacesetter"
-      ],
-      "derivation": [
-        "exemplify",
-        "exemplary"
-      ]
-    },
-    {
-      "definition": "an occurrence of something",
-      "partOfSpeech": "noun",
-      "synonyms": [
-        "case",
-        "instance"
-      ],
-      "typeOf": [
-        "happening",
-        "natural event",
-        "occurrence",
-        "occurrent"
-      ],
-      "hasTypes": [
-        "clip",
-        "mortification",
-        "piece",
-        "time",
-        "humiliation",
-        "bit"
-      ],
-      "derivation": [
-        "exemplify"
-      ],
-      "examples": [
-        "but there is always the famous example of the Smiths"
-      ]
-    },
-    {
-      "definition": "an item of information that is typical of a class or group",
-      "partOfSpeech": "noun",
-      "synonyms": [
-        "illustration",
-        "instance",
-        "representative"
-      ],
-      "typeOf": [
-        "information"
-      ],
-      "hasTypes": [
-        "excuse",
-        "apology",
-        "specimen",
-        "case in point",
-        "sample",
-        "exception",
-        "quintessence",
-        "precedent"
-      ],
-      "derivation": [
-        "exemplify",
-        "exemplary"
-      ],
-      "examples": [
-        "this patient provides a typical example of the syndrome",
-        "there is an example on page 10"
-      ]
-    },
-    {
-      "definition": "punishment intended as a warning to others",
-      "partOfSpeech": "noun",
-      "synonyms": [
-        "deterrent example",
-        "lesson",
-        "object lesson"
-      ],
-      "typeOf": [
-        "monition",
-        "admonition",
-        "word of advice",
-        "warning"
-      ],
-      "derivation": [
-        "exemplary"
-      ],
-      "examples": [
-        "they decided to make an example of him"
-      ]
-    },
-    {
-      "definition": "a task performed or problem solved in order to develop skill or understanding",
-      "partOfSpeech": "noun",
-      "synonyms": [
-        "exercise"
-      ],
-      "typeOf": [
-        "lesson"
-      ],
-      "examples": [
-        "you must work the examples at the end of each chapter in the textbook"
-      ]
-    }
-  ],
-  "syllables": {
-    "count": 3,
-    "list": [
-      "ex",
-      "am",
-      "ple"
-    ]
-  },
-  "pronunciation": {
-    "all": "ɪɡ'zæmpəl"
-  },
-  "frequency": 4.67
-}
+## Para executar o projeto:
+```
+flutter pub get
+flutter run
 ```
 
-### Front-End:
+# Autor
 
-Nessa etapa você deverá desenvolver uma aplicação móvel nativa ou hibrida para consumir a API do desafio.
+Fernando Danza Barreto
 
-**Obrigatório 1** - Você deverá atender aos seguintes casos de uso:
+https://www.linkedin.com/in/fernando-barreto-75bb841a0/
 
-- Como usuário, devo ser capaz de visualizar uma lista de palavras com rolagem infinita
-- Como usuário, devo ser capaz de visualizar uma palavra, significados e a fonética
-- Como usuário, devo ser capaz de salvar a palavra como favorito
-- Como usuário, devo ser capaz de remover a palavra como favorito
-- Como usuário, devo ser capaz de visitar uma lista com as palavras que já vi anteriormente
+## Se este é o seu primeiro projeto Flutter
 
-A API não possui endpoint com a lista de palavras. Essa lista pode ser carregada em memória ou ser salva em banco de dados local ou remoto (por exemplo, com Firebase). Será necessário usar o [arquivo existente dentro do projeto no Github](https://github.com/dwyl/english-words/blob/master/words_dictionary.json).
+Alguns recursos para você começar se este é o seu primeiro projeto Flutter:
 
-**Obrigatório 2** - Salvar em cache o resultado das requisições ao Words API, para agilizar a resposta em caso de buscas com parâmetros repetidos.
+- [Lab: Crie seu primeiro aplicativo Flutter](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Exemplos úteis do Flutter](https://flutter.dev/docs/cookbook)
 
-**Obrigatório 3** - Seguir o wireframe para a página de listagem dos dados. Pode-se alterar a posição dos itens, mantendo as funcionalidades solicitadas.
-
-<img src="./img/wireframe.png" width="100%" />
-
-**Diferencial 1** - Implementar um tocador de audio utilizando, por exemplo, https://responsivevoice.org/api ou recursos nativos;
-
-**Diferencial 2** - Utilizar alguma ferramenta de Injeção de Dependência;
-
-**Diferencial 3** - Escrever Unit Tests ou E2E Test. Escolher a melhor abordagem e biblioteca;
-
-**Diferencial 4** - Implementar login com usuário e senha e associar os favoritos e histórico ao ID do usuário, salvando essa informação em banco de dados local ou remoto
-
-## Readme do Repositório
-
-- Deve conter o título do projeto
-- Uma descrição sobre o projeto em frase
-- Deve conter uma lista com linguagem, framework e/ou tecnologias usadas
-- Como instalar e usar o projeto (instruções)
-- Não esqueça o [.gitignore](https://www.toptal.com/developers/gitignore)
-- Se está usando github pessoal, referencie que é um challenge by coodesh:  
-
-
-## Finalização e Instruções para a Apresentação
-
-Avisar sobre a finalização e enviar para correção.
-
-
-## Suporte
-
-Entre em contato no email alessandro.silva@soupilar.com.br
+Para obter ajuda para começar com o Flutter, consulte está documentação
+[documentação online](https://flutter.dev/docs), que oferece tutoriais,
+exemplos, orientações sobre desenvolvimento mobile e uma referência completa da API.
