@@ -67,7 +67,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
                                     controller.wordDetail.maybeWhen(
                                       data: (data) {
-                                        Modular.to.pushNamed('/word-detail');
+                                        Modular.to
+                                            .pushNamed('/word-detail')
+                                            .then((value) =>
+                                                controller.getFavoriteWords());
                                       },
                                       orElse: () {
                                         final snackBar = SnackBar(
