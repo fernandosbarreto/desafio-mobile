@@ -23,13 +23,13 @@ O aplicativo WordsApp oferece uma experiência intuitiva ao exibir uma lista de 
 ## Um projeto Flutter feito utilizando:
 
 - **Flutter** Versão 3.10.6 - última versão estável em 15/08/2023 [[doc]](https://docs.flutter.dev/release/archive?tab=windows)
-- 
+
 - **mobx** para gerenciamento de estado [[pub.dev]](https://pub.dev/packages/mobx) [[doc]](https://pub.dev/documentation/mobx/latest/)
 
 - **freezed** para ajudar a criar modelos e estados de exibição [[pub.dev]](https://pub.dev/packages/freezed) [[doc]](https://pub.dev/documentation/freezed/latest/)
 
 - **Flutter Modular** para injeção de dependência e rotas [[pub.dev]](https://pub.dev/packages/flutter_modular) [[doc]](https://modular.flutterando.com.br/)
--  
+  
 - **Flutter Secure Storage** para armazenamento local criptografado [[pub.dev]](https://pub.dev/packages/flutter_secure_storage) [[doc]](https://pub.dev/documentation/flutter_secure_storage/latest/)
   
 - **Dio** para simplificar requisições de rede e interações com API [[pub.dev]](https://pub.dev/packages/dio) [[doc]](https://pub.dev/documentation/dio/latest/)
