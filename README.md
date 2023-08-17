@@ -5,7 +5,7 @@
 O aplicativo WordsApp oferece uma experiência intuitiva ao exibir uma lista de palavras em inglês. Ao tocar em uma palavra, os usuários podem acessar uma tela detalhada contendo descrição, pronúncia e frequência de uso. A funcionalidade de salvar palavras favoritas localmente adiciona comodidade, permitindo aos usuários revisitar suas seleções. Esse projeto foi proposto como desafio pela equipe [**Pilar**](https://www.soupilar.com.br/) e pode ser acessado em [**DesafioMobile**](https://github.com/alessandrosil/desafio-mobile).
 
 ## Preview
-![Mobile 1](https://github.com/fernandosbarreto/desafio-mobile/blob/main/preview/wordApp-preview.mp4) 
+![Mobile 1](https://github.com/fernandosbarreto/desafio-mobile/blob/main/preview/wordApp-preview.gif) 
 ## Etapas
 1. Realizar fork e clone do projeto;
 2. Investigar o funcionamento da API (descobri que não é necessário cadastrar cartão de crédito para uso, testando com F12 no navegador, encontrei os parâmetros padrões);
