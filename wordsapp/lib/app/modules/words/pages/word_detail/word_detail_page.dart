@@ -17,6 +17,12 @@ class _WordDetailPageState extends State<WordDetailPage> {
   final controller = Modular.get<WordDetailController>();
 
   @override
+  void initState() {
+    controller.onInit();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFefefef),
@@ -50,6 +56,32 @@ class _WordDetailPageState extends State<WordDetailPage> {
                     ),
                   ),
                   const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () => controller.speech(),
+                        icon: controller.ttsState == TtsState.playing
+                            ? const Icon(Icons.pause)
+                            : const Icon(Icons.play_arrow),
+                      ),
+                      Expanded(
+                        child: TweenAnimationBuilder<double>(
+                          duration: const Duration(milliseconds: 250),
+                          curve: Curves.easeInOut,
+                          tween: Tween<double>(
+                            begin: 0,
+                            end: controller.progress,
+                          ),
+                          builder: (context, value, _) =>
+                              LinearProgressIndicator(
+                            value: value,
+                            backgroundColor: Colors.white,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   if (meanings.isNotEmpty)
                     Text(
                       'Meanings',

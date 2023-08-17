@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:wordsapp/app/core/interfaces/secure_storage_interface.dart';
 import 'package:wordsapp/app/core/interfaces/words_repository_interface.dart';
 import 'package:wordsapp/app/core/repositories/words_repository.dart';
@@ -21,7 +22,7 @@ class WordsModule extends Module {
     Bind.lazySingleton((i) => WordListController(i.get())),
     Bind.lazySingleton((i) => HistoryController(i.get())),
     Bind.lazySingleton((i) => FavoritesController(i.get())),
-    Bind.lazySingleton((i) => WordDetailController(i.get())),
+    Bind.lazySingleton((i) => WordDetailController(i.get(), i.get())),
 
     //stores
     Bind.lazySingleton((i) => WordsStore(i.get(), i.get())),
@@ -32,6 +33,7 @@ class WordsModule extends Module {
 
     //services
     Bind.lazySingleton<ISecureStorage>((i) => SecureStorage()),
+    Bind.lazySingleton((i) => FlutterTts()),
   ];
 
   @override
